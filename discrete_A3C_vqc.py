@@ -31,7 +31,7 @@ os.environ["OMP_NUM_THREADS"] = "1"
 
 UPDATE_GLOBAL_ITER = 5
 GAMMA = 0.9
-MAX_EP = 50000
+MAX_EP = 10000
 
 
 ENV_NAME = 'MiniGrid-Empty-5x5-v0'
@@ -127,7 +127,8 @@ class Worker(mp.Process):
 	def run(self):
 		total_step = 1
 		while self.g_ep.value < MAX_EP:
-			s = self.env.reset()
+			# s = self.env.reset()
+			s, _ = self.env.reset() # New Gymnasium
 			buffer_s, buffer_a, buffer_r = [], [], []
 			ep_r = 0.
 			epi_step = 1
