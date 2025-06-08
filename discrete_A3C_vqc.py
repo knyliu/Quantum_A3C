@@ -1,3 +1,7 @@
+# torch == 1.12.1
+# pennylane == 0.35.1
+# numpy == 1.26.4
+
 import numpy as np
 
 
@@ -45,9 +49,7 @@ input_dim = latent_dim
 output_dim = latent_dim
 num_qubit = latent_dim
 num_vqc_layers = 2
-# dev = dev = qml.device("default.qubit", wires = num_qubit)
-# hadamard_gate = True
-# more_entangle = True
+
 
 
 N_S = env.observation_space.shape[0]
@@ -133,11 +135,10 @@ class Worker(mp.Process):
 			ep_r = 0.
 			epi_step = 1
 			while True:
-				# if self.name == 'w00':
-					# self.env.render()
 
-				a = self.lnet.choose_action(v_wrap(s[None, :])) # 2022 09 11: need to fix here
-				# s_, r, done, _ = self.env.step(a)
+
+				a = self.lnet.choose_action(v_wrap(s[None, :])) 
+
 
 				s_, r, terminated, truncated, info = self.env.step(a)
 				done = terminated or truncated  # Combine both flags into a single `done` flag
